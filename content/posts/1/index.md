@@ -1,14 +1,12 @@
 +++
-title = "Deployment"
-date = "2022-04-30"
+title = "Domain"
+date = "2018-05-03"
 +++
 
-Hi there, I just put together a simple website and deployed it.
+Hi there, I just bought a new domain - muskalski.com - yay!
 
 <!--more-->
 
 ## A few words
 
-After a while I realized that it happens to me to over-engineer things not mentioning too much of strive for perfection. In general the latter is a good thing, but often it greatly delays or even leads me to abandoning my projects.
-
-Remember folks, simple is better than complex!
+I'm very surprised that no one took it yet. Good for me :)
