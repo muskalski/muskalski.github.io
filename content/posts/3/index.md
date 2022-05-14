@@ -1,12 +1,12 @@
 +++
-title = "First deployment"
+title = "Initial deployment"
 date = "2022-05-08"
 +++
 
-The site is live!
+Another site is live!
 
 <!--more-->
 
 ## A few words
 
-Man, it took me so much time to solve a problem with git submodule that I had which caused the delay of the deployment but here it is, enjoy! I guess I will write an article about the traps that you can encounter when using git submodules
+After creating a few sites powered by Django and Flask I went with something easier, simpler and faster. Will see how long I can stick to it before creating a new version of this site.
