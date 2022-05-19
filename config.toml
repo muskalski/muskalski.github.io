@@ -2,6 +2,7 @@ baseURL = 'https://muskalski.github.io/'
 languageCode = 'en-us'
 title = 'muskalski.com'
 theme = 'hugo-theme-console'
+googleAnalytics = 'G-WG1EZQKZT2'
 
 [params]
   # Cutting off the page title to two chars for mobile (console-demo -> co)
