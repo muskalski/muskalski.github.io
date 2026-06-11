@@ -3,19 +3,21 @@ date = "2016-11-05T21:05:33+05:30"
 title = "About"
 +++
 
-Software Developer born in Poland
+Software Engineer born in Poland
 
 ## Education
 
 Master of Science: Computer Science, University of Opole
+Certification: Web Application Programming, CCSF
+Certification: AAAI/ISMA Personal Fitness Trainer
 
 ## Experience
 
-Software Developer at Pure Storage, 2019 - Present
+Software Engineer in a corporate enterprise, Mar 2019 - May 2026
 
 ## Hobby
 
-Programming, traveling, calisthenics, tinkering with technologies
+Music, synthesizers, sound design, traveling, calisthenics, tinkering with technologies, programming
 
 ## Links
 
