@@ -11,7 +11,7 @@ Master of Science: Computer Science, University of Opole
 
 ## Experience
 
-Software Developer at Pure Storage, 2019 - Present
+Software Engineer at corporate enterprise, Mar 2019 - May 2026
 
 ## Hobby
 
