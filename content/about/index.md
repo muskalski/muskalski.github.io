@@ -13,7 +13,7 @@ Certification: AAAI/ISMA Personal Fitness Trainer
 
 ## Experience
 
-Software Engineer at corporate enterprise, Mar 2019 - May 2026
+Software Engineer in a corporate enterprise, Mar 2019 - May 2026
 
 ## Hobby
 
