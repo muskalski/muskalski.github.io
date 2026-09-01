@@ -7,7 +7,6 @@ Software Engineer born in Poland
 
 ## Education
 
-- Master of Science: Computer Science, University of Opole
 - Certification: Web Application Programming, CCSF
 - Certification: AAAI/ISMA Personal Fitness Trainer
 
