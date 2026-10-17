@@ -1,6 +1,6 @@
 # Local implementation verification — 2026-10-17
 
-Implemented in the isolated `implementation/` checkout on `feat/personal-website`, based on `d5f0453`. The parent approved docs and visual mockup remain untouched. Existing repository history is retained. Nothing has been pushed or deployed.
+Implemented in the isolated `implementation/` checkout on `feat/personal-website`, based on `d5f0453`. The parent approved docs and visual mockup remain untouched. Existing repository history is retained. This document records the initial local verification; publication was subsequently authorized after owner preview.
 
 ## Delivered
 
@@ -48,7 +48,7 @@ No deferred minor findings remain.
 
 The unconfigured production preview is running at `http://127.0.0.1:4322/`. Screenshots are in the parent workspace's `previews/` directory. To restart: `npm run build` then `npm run preview -- --port 4322`. To stop the managed preview: `npx astro preview stop`.
 
-Keep the branch local until owner approval. Launch requires the real Formspree endpoint/recipient setup, the LinkedIn publication decision, write access and explicit push/deployment authorization. No real submissions, DNS changes or visibility changes were made.
+The owner subsequently authorized publication of the reviewed site. The contact form remains visibly unavailable until Formspree is configured, and LinkedIn remains absent by default. External delivery requires recipient setup and an authorized real test. No real submissions, DNS changes or visibility changes are part of this publication.
 
 ## Approved gallery refinement
 

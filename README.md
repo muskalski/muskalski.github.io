@@ -30,7 +30,7 @@ Copy `.env.example` to `.env`. Both settings are optional and embedded into stat
 
 The configured contact-test command sets a fake endpoint for a separate server. Tests intercept it and simulate validation, pending requests, success, server failure and network failure. Run the default suite with `PUBLIC_FORM_ENDPOINT` unset and no endpoint in `.env` to test the unconfigured site. Tests must never be run against a live provider endpoint.
 
-## Formspree setup before launch
+## Contact form setup
 
 The site owner should own the Formspree account and form. Create the form and configure/verify the recipient privately in the provider dashboard. Enable provider spam filtering, retain the `_gotcha` honeypot, and configure domain restrictions for `muskalski.com` where available. Review any CAPTCHA configuration against this AJAX form before enabling it; a challenge must be supported by the chosen integration. Review service limits, privacy settings and notification routing in that account.
 
@@ -40,12 +40,12 @@ Provider documentation: [AJAX submissions](https://help.formspree.io/articles/bu
 
 ## Photos and content
 
-`src/data/photos.ts` owns captions, alt text and individual thumbnail positions. `src/assets/photos` contains six metadata-free JPEG derivatives with a maximum dimension of 2000px. Original files stay outside this source tree. Astro generates responsive WebP thumbnails and separate full-composition lightbox images. The hero is eager-loaded; gallery thumbnails are lazy-loaded. No external fonts, analytics, old articles, or legacy route mappings are included.
+`src/data/photos.ts` owns captions, alt text and individual thumbnail positions. `src/assets/photos` contains six metadata-free JPEG derivatives with a maximum dimension of 2000px. Original files stay outside this source tree. Astro generates responsive WebP thumbnails and separate full-composition lightbox images. Gallery thumbnails are lazy-loaded; full images load when opened. No external fonts, analytics, old articles, or legacy route mappings are included.
 
-## Publication — pending owner approval
+## Publication
 
 Do not push or deploy until local checks, one independent final review, and owner visual review are complete. The workflow builds pull requests without publication. Only a push to `master` publishes `dist` to the existing `gh-pages` branch. It retains `CNAME`; keep existing Pages branch settings and DNS unchanged. The workflow uses the committed npm lockfile for clean installs.
 
-Before publication: confirm repository write access; configure the form endpoint; decide whether to publish LinkedIn; authorize publication and the real delivery check. After publication, verify HTTPS, homepage, a retired URL/404, custom domain, and the authorized form delivery. No push or deployment has been performed.
+Publication requires repository write access and owner approval. The contact form can remain visibly unavailable until the owner configures Formspree. Publish LinkedIn only after owner approval. After publication, verify HTTPS, homepage, a retired URL/404 and the custom domain. A real delivery check requires configured Formspree and authorization to send a test message.
 
 Dependency references: [Astro prerequisites](https://docs.astro.build/en/install-and-setup/), [Astro registry metadata](https://registry.npmjs.org/astro/latest), [GitHub Pages action](https://github.com/peaceiris/actions-gh-pages).
