@@ -1,18 +1,15 @@
 ---
-import { Image } from 'astro:assets';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import ContactForm from '../components/ContactForm.astro';
 import PhotoGallery from '../components/PhotoGallery.astro';
-import { photos } from '../data/photos';
 ---
 <BaseLayout>
   <section class="hero" aria-labelledby="headline">
     <div><div class="eyebrow mono"><span class="dot" aria-hidden="true"></span>Software engineer · Born in Poland</div>
-      <h1 id="headline">Code. Sound.<br />Everything<br /><span class="serif">in between.</span></h1>
+      <h1 id="headline">Code. Sound.<br />Everything <span class="serif">in between.</span></h1>
       <p class="intro">I build software and explore new technologies.</p>
       <a class="jump mono" href="#about">A little about me <span aria-hidden="true">↘</span></a>
     </div>
-    <figure class="hero-photo"><Image src={photos[0].image} alt={photos[0].alt} widths={[480, 800, 1200]} sizes="(max-width: 580px) 88vw, 40vw" format="webp" loading="eager" fetchpriority="high" /><figcaption class="photo-meta mono"><span>Exploratorium, San Francisco</span><span>01 / 06</span></figcaption></figure>
   </section>
   <div class="ticker mono" aria-label="Interests"><span>Software</span><b aria-hidden="true">·</b><span>Music &amp; sound design</span><b aria-hidden="true">·</b><span>Sports</span><b aria-hidden="true">·</b><span>Travel</span></div>
   <section class="about" id="about" aria-labelledby="about-title"><div class="section-number mono">01 — About</div><div><h2 id="about-title">Software engineer.<br /><span class="serif">Born in Poland.</span></h2><p>I build software and explore new technologies. Outside of programming, I enjoy making music, exploring sound design, staying active, and traveling.</p></div></section>

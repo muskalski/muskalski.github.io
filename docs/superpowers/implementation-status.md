@@ -53,3 +53,7 @@ Keep the branch local until owner approval. Launch requires the real Formspree e
 ## Approved gallery refinement
 
 Removed all thumbnail captions and numbering; retained plain factual descriptions in the lightbox and useful image alt text. Navigation/lightbox now say “Photos”, and the section label is “02 — A few moments”, without the code-centred subtitle. Astro check/build and all 10 applicable browser tests pass; four viewport screenshots were refreshed and the desktop gallery visually inspected. Photo selection is unchanged.
+
+## Text-only hero
+
+Removed the hero photograph at the owner's request, keeping the Exploratorium image once in the gallery. The headline now spans the available desktop width and keeps “in between” together when wrapping on mobile. The photo-led layout remains available in commit `4c37dba` for a future return. Astro check/build and the 10 applicable browser checks passed; after the final line-break adjustment, all five site/layout checks passed again. Four viewport screenshots were refreshed with no overflow or page-script errors.
