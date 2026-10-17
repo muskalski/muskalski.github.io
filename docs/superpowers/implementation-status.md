@@ -49,3 +49,7 @@ No deferred minor findings remain.
 The unconfigured production preview is running at `http://127.0.0.1:4322/`. Screenshots are in the parent workspace's `previews/` directory. To restart: `npm run build` then `npm run preview -- --port 4322`. To stop the managed preview: `npx astro preview stop`.
 
 Keep the branch local until owner approval. Launch requires the real Formspree endpoint/recipient setup, the LinkedIn publication decision, write access and explicit push/deployment authorization. No real submissions, DNS changes or visibility changes were made.
+
+## Approved gallery refinement
+
+Removed all thumbnail captions and numbering; retained plain factual descriptions in the lightbox and useful image alt text. Navigation/lightbox now say “Photos”, and the section label is “02 — A few moments”, without the code-centred subtitle. Astro check/build and all 10 applicable browser tests pass; four viewport screenshots were refreshed and the desktop gallery visually inspected. Photo selection is unchanged.

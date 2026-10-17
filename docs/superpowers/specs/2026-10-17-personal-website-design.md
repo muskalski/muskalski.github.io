@@ -61,3 +61,7 @@ The original Big Sur photo is available in the inspected repository at `content/
 ## Remaining launch inputs
 
 Write access for eventual publication, configured form endpoint, and whether to include LinkedIn. These do not prevent implementing the core site. The user approved this design and the stack; next is implementation-plan review.
+
+## Approved editorial refinement
+
+After reviewing the implementation, the owner approved removing captions from all six gallery thumbnails. Keep useful alt text and plain descriptive captions in the lightbox. Navigation and the lightbox use “Photos”; the gallery label is “02 — A few moments”, retaining “A different kind of balance.” as its heading. Remove the code-centred gallery subheading.
