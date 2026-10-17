@@ -1,0 +1,25 @@
+---
+import { Image, getImage } from 'astro:assets';
+import { photos } from '../data/photos';
+const fullPhotos = await Promise.all(photos.map(photo => getImage({ src: photo.image, format: 'webp', quality: 88 })));
+---
+<div data-gallery>
+  <div class="gallery">
+    {photos.map((photo, index) => <figure>
+      <a class="photo-link" href={fullPhotos[index].src} data-photo={photo.id} data-caption={photo.caption} aria-label={`View photo: ${photo.caption}`}>
+        <Image src={photo.image} alt={photo.alt} widths={[360, 640, 960]} sizes="(max-width: 580px) 88vw, (max-width: 1000px) 42vw, 28vw" format="webp" loading="lazy" style={`object-position: ${photo.objectPosition}`} />
+      </a>
+      <figcaption>{photo.caption}<span class="mono">{String(index + 1).padStart(2, '0')} / 06 ↗</span></figcaption>
+    </figure>)}
+  </div>
+  <dialog class="lightbox" aria-label="Photo viewer" aria-describedby="photo-caption">
+    <div class="lightbox-toolbar"><span class="mono">Outside the code</span><button type="button" data-close aria-label="Close photo viewer" autofocus>Close ×</button></div>
+    <img data-full-photo alt="" />
+    <div class="lightbox-bottom"><button type="button" data-previous aria-label="Previous photo">←</button><p id="photo-caption" data-caption aria-live="polite"></p><button type="button" data-next aria-label="Next photo">→</button></div>
+  </dialog>
+</div>
+
+<script>
+  import { initGallery } from '../scripts/gallery';
+  document.querySelectorAll<HTMLElement>('[data-gallery]').forEach(initGallery);
+</script>
