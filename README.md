@@ -26,7 +26,7 @@ For an older operating system unsupported by the newest Playwright Chromium, set
 Copy `.env.example` to `.env`. Both settings are optional and embedded into static output at build time. Restart/rebuild after changes. Never put a recipient email, API token, or other credential in these values.
 
 - `PUBLIC_FORM_ENDPOINT`: optional override for the public FormSubmit endpoint, `https://formsubmit.co/` followed by the 32-character identifier. By default the site uses the owner-provided identifier in `src/config/site.ts`. Empty values use that default. A recipient email or AJAX endpoint is rejected at build time.
-- `PUBLIC_LINKEDIN_URL`: optional LinkedIn profile. Leave absent until the owner approves publishing it.
+- `PUBLIC_LINKEDIN_URL`: optional override of the owner-approved LinkedIn profile in `src/config/site.ts`. Empty values use that default.
 
 For deployment, the existing GitHub repository variables can override these public settings; no provider secret is required. Never enter an email address as the endpoint.
 

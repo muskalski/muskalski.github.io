@@ -36,7 +36,7 @@ User favors a contact form to avoid publishing their email. Form fields: name, e
 
 The owner must provide/configure a real form endpoint and recipient verification before launch. Until then, local previews clearly identify the form as unconfigured and cannot falsely report delivery. No service account creation, subscriptions, or external test messages without appropriate user authorization. A contact form reduces email exposure but does not guarantee zero spam or erase earlier public copies.
 
-LinkedIn URL supplied by owner: `https://www.linkedin.com/in/muskalski/`. A discreet footer link is recommended but not explicitly accepted; obtain the owner's choice before production publication because it may expose employer information. Implement it as optional configuration, absent by default.
+LinkedIn URL supplied by owner: `https://www.linkedin.com/in/muskalski/`. The owner approved a discreet footer link on 2026-10-18. Use this profile by default, with an optional configuration override.
 
 ## Stack and hosting
 

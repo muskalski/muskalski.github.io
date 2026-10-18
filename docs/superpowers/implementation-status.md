@@ -89,3 +89,7 @@ The owner approved adding “I build custom software. Have a project in mind? Le
 ## Minimal footer
 
 Removed the redundant footer contact shortcut. The footer retains the domain wordmark/home link and copyright, with the optional LinkedIn link still absent by default.
+
+## LinkedIn footer link
+
+The owner approved the discreet LinkedIn footer link. Enabled the previously supplied profile as the default, retaining the environment override and existing footer styling.

@@ -8,9 +8,9 @@ async function loadConfig(env) {
   const js = stripTypeScriptTypes(source).replaceAll('import.meta.env', JSON.stringify(env));
   return (await import(`data:text/javascript;base64,${Buffer.from(js).toString('base64')}`)).siteConfig;
 }
-test('LinkedIn is absent by default', async () => {
+test('uses the owner-approved LinkedIn profile by default', async () => {
   const config = await loadConfig({});
-  assert.equal(config.linkedInUrl, undefined);
+  assert.equal(config.linkedInUrl, 'https://www.linkedin.com/in/muskalski/');
 });
 test('accepts an owner-approved LinkedIn profile when configured', async () => {
   const url = 'https://www.linkedin.com/in/muskalski/';
