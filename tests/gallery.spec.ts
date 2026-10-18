@@ -20,6 +20,7 @@ test('previous, next and arrow keys wrap across all six images', async ({ page }
   const dialog = page.getByRole('dialog');
   await dialog.getByRole('button', { name: 'Previous photo' }).click();
   await expect(dialog.locator('img')).toHaveAttribute('alt', /Big Sur/);
+  await expect(dialog).toHaveAccessibleDescription(/Sitting on a bench overlooking the Pacific coast at Big Sur/);
   await dialog.getByRole('button', { name: 'Next photo' }).click();
   await expect(dialog.locator('img')).toHaveAttribute('alt', /tornado/);
   await page.keyboard.press('ArrowRight');
@@ -27,6 +28,7 @@ test('previous, next and arrow keys wrap across all six images', async ({ page }
   await page.keyboard.press('ArrowLeft');
   await page.keyboard.press('ArrowLeft');
   await expect(dialog.locator('img')).toHaveAttribute('alt', /Big Sur/);
+  await expect(dialog).toHaveAccessibleDescription(/Sitting on a bench overlooking the Pacific coast at Big Sur/);
 });
 test('tab and shift-tab remain in the dialog; close returns to opener', async ({ page }) => {
   const opener = page.locator('[data-photo="italy"]');

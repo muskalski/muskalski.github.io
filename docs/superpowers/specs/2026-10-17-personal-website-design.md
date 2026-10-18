@@ -71,3 +71,5 @@ The owner subsequently chose a text-only hero to remove the repeated Exploratori
 ## Contact provider update — 2026-10-18
 
 The owner chose FormSubmit.co after comparing free forwarding services and provided its activated opaque identifier. This supersedes the proposed Formspree AJAX integration. Use a native form POST with provider-default CAPTCHA, `_honey`, an identifying subject and an absolute `_next` URL returning to `/thanks/`. Keep the recipient email out of source and deployment output. The public identifier may be stored in site configuration. The owner will confirm live CAPTCHA and inbox delivery; automated tests must intercept provider requests.
+
+The owner later requested removing visible photo descriptions from the lightbox as well. Keep descriptions and photo-position announcements available to screen readers, with no visible photo caption or counter.

@@ -6,15 +6,16 @@ const fullPhotos = await Promise.all(photos.map(photo => getImage({ src: photo.i
 <div data-gallery>
   <div class="gallery">
     {photos.map((photo, index) => <figure>
-      <a class="photo-link" href={fullPhotos[index].src} data-photo={photo.id} data-caption={photo.caption} aria-label={`View photo: ${photo.alt}`}>
+      <a class="photo-link" href={fullPhotos[index].src} data-photo={photo.id} aria-label={`View photo: ${photo.alt}`}>
         <Image src={photo.image} alt={photo.alt} widths={[360, 640, 960]} sizes="(max-width: 580px) 88vw, (max-width: 1000px) 42vw, 28vw" format="webp" loading="lazy" style={`object-position: ${photo.objectPosition}`} />
       </a>
     </figure>)}
   </div>
-  <dialog class="lightbox" aria-label="Photo viewer" aria-describedby="photo-caption">
+  <dialog class="lightbox" aria-label="Photo viewer" aria-describedby="photo-status">
     <div class="lightbox-toolbar"><span class="mono">Photos</span><button type="button" data-close aria-label="Close photo viewer" autofocus>Close ×</button></div>
     <img data-full-photo alt="" />
-    <div class="lightbox-bottom"><button type="button" data-previous aria-label="Previous photo">←</button><p id="photo-caption" data-caption aria-live="polite"></p><button type="button" data-next aria-label="Next photo">→</button></div>
+    <p id="photo-status" class="visually-hidden" data-photo-status aria-live="polite" aria-atomic="true"></p>
+    <div class="lightbox-bottom"><button type="button" data-previous aria-label="Previous photo">←</button><button type="button" data-next aria-label="Next photo">→</button></div>
   </dialog>
 </div>
 

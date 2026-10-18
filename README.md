@@ -44,7 +44,7 @@ Provider documentation: [FormSubmit](https://formsubmit.co/documentation), [priv
 
 ## Photos and content
 
-`src/data/photos.ts` owns captions, alt text and individual thumbnail positions. `src/assets/photos` contains six metadata-free JPEG derivatives with a maximum dimension of 2000px. Original files stay outside this source tree. Astro generates responsive WebP thumbnails and separate full-composition lightbox images. Gallery thumbnails are lazy-loaded; full images load when opened. No external fonts, analytics, old articles, or legacy route mappings are included.
+`src/data/photos.ts` owns alt text and individual thumbnail positions. `src/assets/photos` contains six metadata-free JPEG derivatives with a maximum dimension of 2000px. Original files stay outside this source tree. Astro generates responsive WebP thumbnails and separate full-composition lightbox images. Gallery thumbnails are lazy-loaded; full images load when opened. No external fonts, analytics, old articles, or legacy route mappings are included.
 
 ## Publication
 

@@ -67,3 +67,9 @@ Removed the former Formspree fetch controller and its asynchronous-reset regress
 Verification: Astro check has zero errors/warnings/hints; production build passes; all 3 Node unit and 14 browser tests pass. Every provider request was intercepted, so no real emails were sent and no CAPTCHA was bypassed. Desktop/mobile form and thank-you screenshots were inspected without overflow. Output audit confirms the exact opaque endpoint, enabled native submission, absolute return/source URLs, honeypot, no CAPTCHA-disable setting, no email addresses and no Formspree remnants. The thank-you page is excluded from the sitemap and marked noindex; it makes no inbox-delivery guarantee and contains no submitted information.
 
 Actual live-site CAPTCHA, any additional activation for muskalski.com, and receipt in the owner's inbox remain a manual end-to-end check. The prior demo activation alone is not claimed to establish live delivery.
+
+## Contact confirmation and lightbox refinement — 2026-10-18
+
+After deployment, the owner confirmed that a real contact message arrived in the inbox, completing the manual delivery check.
+
+Removed visible descriptions and numbering from the lightbox at the owner's request. Removed unused caption data and styling. Image alt text remains, and a visually hidden live description announces each image and its position to screen readers. The accessible-description test was observed failing before the change and passing afterward. Astro check/build and all 14 browser tests pass; desktop and mobile lightbox screenshots were checked before publication. No contact messages were sent by the automated checks.

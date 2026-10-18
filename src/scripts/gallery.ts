@@ -3,7 +3,7 @@ export function initGallery(root: HTMLElement): void {
   if (!dialog || typeof dialog.showModal !== 'function') return;
   const links = [...root.querySelectorAll<HTMLAnchorElement>('[data-photo]')];
   const image = dialog.querySelector<HTMLImageElement>('[data-full-photo]')!;
-  const caption = dialog.querySelector<HTMLElement>('[data-caption]')!;
+  const status = dialog.querySelector<HTMLElement>('[data-photo-status]')!;
   const close = dialog.querySelector<HTMLButtonElement>('[data-close]')!;
   let index = 0;
   let opener: HTMLAnchorElement | undefined;
@@ -13,7 +13,7 @@ export function initGallery(root: HTMLElement): void {
     const link = links[index];
     image.src = link.href;
     image.alt = link.querySelector('img')?.alt ?? '';
-    caption.textContent = `${link.dataset.caption} ${index + 1} / ${links.length}`;
+    status.textContent = `Photo ${index + 1} of ${links.length}: ${image.alt}`;
   }
   links.forEach((link, i) => link.addEventListener('click', event => {
     if (event.ctrlKey || event.metaKey || event.shiftKey || event.altKey || event.button !== 0) return;
