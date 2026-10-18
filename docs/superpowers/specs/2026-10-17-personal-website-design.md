@@ -77,3 +77,5 @@ The owner later requested removing visible photo descriptions from the lightbox 
 The owner approved restoring only a subtle photo counter (for example, “1 / 6”) between the lightbox navigation arrows. Descriptions remain hidden from view.
 
 The owner requested removing the birthplace reference throughout the site, including the opening, About section, search description and social-sharing description.
+
+The owner approved adding “I build custom software. Have a project in mind? Let’s talk.” beneath the contact heading.

@@ -81,3 +81,7 @@ Restored only the subtle position counter between previous/next controls after o
 ## Birthplace copy removal
 
 Removed the birthplace reference from the opening, About heading, search description and social-sharing description, and updated the current design copy. Astro check/build pass; a production-output audit confirms the phrase is absent. The software-services sentence remains a proposal pending the owner's choice.
+
+## Custom software invitation
+
+The owner approved adding “I build custom software. Have a project in mind? Let’s talk.” below “Say hello.” in the contact section. Styled it as supporting text within the existing responsive layout. Astro check/build and all five site/layout checks pass. The footer contact shortcut remains unchanged because its removal was discussed but not requested.
