@@ -85,3 +85,7 @@ Removed the birthplace reference from the opening, About heading, search descrip
 ## Custom software invitation
 
 The owner approved adding “I build custom software. Have a project in mind? Let’s talk.” below “Say hello.” in the contact section. Styled it as supporting text within the existing responsive layout. Astro check/build and all five site/layout checks pass. The footer contact shortcut remains unchanged because its removal was discussed but not requested.
+
+## Minimal footer
+
+Removed the redundant footer contact shortcut. The footer retains the domain wordmark/home link and copyright, with the optional LinkedIn link still absent by default.
