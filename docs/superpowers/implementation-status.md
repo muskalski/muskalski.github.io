@@ -76,4 +76,8 @@ Removed visible descriptions and numbering from the lightbox at the owner's requ
 
 ## Lightbox counter
 
-Restored only the subtle position counter between previous/next controls after owner approval. Full descriptions remain available only to screen readers. The counter regression failed before implementation and now passes for initial selection, wraparound and keyboard navigation. Astro check/build and all 14 browser checks pass. The mobile preview was checked with a visible “5 / 6” counter and hidden description. The owner's questions about “Born in Poland” and the footer contact link remain design discussion; no changes to those were approved in this step.
+Restored only the subtle position counter between previous/next controls after owner approval. Full descriptions remain available only to screen readers. The counter regression failed before implementation and now passes for initial selection, wraparound and keyboard navigation. Astro check/build and all 14 browser checks pass. The mobile preview was checked with a visible “5 / 6” counter and hidden description. The owner's questions about the birthplace reference and the footer contact link remained design discussion in this step.
+
+## Birthplace copy removal
+
+Removed the birthplace reference from the opening, About heading, search description and social-sharing description, and updated the current design copy. Astro check/build pass; a production-output audit confirms the phrase is absent. The software-services sentence remains a proposal pending the owner's choice.

@@ -12,7 +12,7 @@ Use the dark editorial direction established in `mockups/homepage.html`: charcoa
 
 About copy:
 
-> Software engineer. Born in Poland.
+> Software engineer.
 >
 > I build software and explore new technologies. Outside of programming, I enjoy making music, exploring sound design, staying active, and traveling.
 
@@ -75,3 +75,5 @@ The owner chose FormSubmit.co after comparing free forwarding services and provi
 The owner later requested removing visible photo descriptions from the lightbox as well. Keep descriptions and photo-position announcements available to screen readers, with no visible photo caption or counter.
 
 The owner approved restoring only a subtle photo counter (for example, “1 / 6”) between the lightbox navigation arrows. Descriptions remain hidden from view.
+
+The owner requested removing the birthplace reference throughout the site, including the opening, About section, search description and social-sharing description.
