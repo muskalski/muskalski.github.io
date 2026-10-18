@@ -73,3 +73,7 @@ Actual live-site CAPTCHA, any additional activation for muskalski.com, and recei
 After deployment, the owner confirmed that a real contact message arrived in the inbox, completing the manual delivery check.
 
 Removed visible descriptions and numbering from the lightbox at the owner's request. Removed unused caption data and styling. Image alt text remains, and a visually hidden live description announces each image and its position to screen readers. The accessible-description test was observed failing before the change and passing afterward. Astro check/build and all 14 browser tests pass; desktop and mobile lightbox screenshots were checked before publication. No contact messages were sent by the automated checks.
+
+## Lightbox counter
+
+Restored only the subtle position counter between previous/next controls after owner approval. Full descriptions remain available only to screen readers. The counter regression failed before implementation and now passes for initial selection, wraparound and keyboard navigation. Astro check/build and all 14 browser checks pass. The mobile preview was checked with a visible “5 / 6” counter and hidden description. The owner's questions about “Born in Poland” and the footer contact link remain design discussion; no changes to those were approved in this step.

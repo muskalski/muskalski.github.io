@@ -18,12 +18,16 @@ test('each thumbnail opens its matching uncropped image and restores focus', asy
 test('previous, next and arrow keys wrap across all six images', async ({ page }) => {
   await page.locator('[data-photo="tornado"]').click();
   const dialog = page.getByRole('dialog');
+  await expect(dialog.locator('[data-photo-count]')).toHaveText('1 / 6');
   await dialog.getByRole('button', { name: 'Previous photo' }).click();
+  await expect(dialog.locator('[data-photo-count]')).toHaveText('6 / 6');
   await expect(dialog.locator('img')).toHaveAttribute('alt', /Big Sur/);
   await expect(dialog).toHaveAccessibleDescription(/Sitting on a bench overlooking the Pacific coast at Big Sur/);
   await dialog.getByRole('button', { name: 'Next photo' }).click();
+  await expect(dialog.locator('[data-photo-count]')).toHaveText('1 / 6');
   await expect(dialog.locator('img')).toHaveAttribute('alt', /tornado/);
   await page.keyboard.press('ArrowRight');
+  await expect(dialog.locator('[data-photo-count]')).toHaveText('2 / 6');
   await expect(dialog.locator('img')).toHaveAttribute('alt', /highline/);
   await page.keyboard.press('ArrowLeft');
   await page.keyboard.press('ArrowLeft');

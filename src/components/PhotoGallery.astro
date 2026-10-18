@@ -15,7 +15,7 @@ const fullPhotos = await Promise.all(photos.map(photo => getImage({ src: photo.i
     <div class="lightbox-toolbar"><span class="mono">Photos</span><button type="button" data-close aria-label="Close photo viewer" autofocus>Close ×</button></div>
     <img data-full-photo alt="" />
     <p id="photo-status" class="visually-hidden" data-photo-status aria-live="polite" aria-atomic="true"></p>
-    <div class="lightbox-bottom"><button type="button" data-previous aria-label="Previous photo">←</button><button type="button" data-next aria-label="Next photo">→</button></div>
+    <div class="lightbox-bottom"><button type="button" data-previous aria-label="Previous photo">←</button><span class="lightbox-count mono" data-photo-count aria-hidden="true"></span><button type="button" data-next aria-label="Next photo">→</button></div>
   </dialog>
 </div>
 
