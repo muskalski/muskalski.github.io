@@ -1,17 +1,15 @@
 ---
 import { siteConfig } from '../config/site';
-const configured = Boolean(siteConfig.formEndpoint);
+const next = new URL('/thanks/', Astro.site).href;
+const source = new URL('/#contact', Astro.site).href;
 ---
-<form data-contact action={siteConfig.formEndpoint} method="POST" aria-describedby="contact-status contact-privacy">
+<form action={siteConfig.formEndpoint} method="POST" aria-describedby="contact-privacy">
+  <input type="hidden" name="_subject" value="Message from muskalski.com" />
+  <input type="hidden" name="_next" value={next} />
+  <input type="hidden" name="_url" value={source} />
   <div class="form-row"><div><label for="contact-name">Name <span>(optional)</span></label><input id="contact-name" name="name" autocomplete="name" maxlength="200" /></div><div><label for="contact-email">Email</label><input id="contact-email" name="email" type="email" autocomplete="email" required maxlength="254" /></div></div>
   <label for="contact-message">Message</label><textarea id="contact-message" name="message" rows="6" required maxlength="10000"></textarea>
-  <div class="honeypot" aria-hidden="true"><label for="contact-company">Leave this field empty</label><input id="contact-company" name="_gotcha" tabindex="-1" autocomplete="off" /></div>
-  <p id="contact-privacy" class="form-note">{configured ? <>Your name, email and message are processed by Formspree to deliver your message. <a href="https://formspree.io/legal/privacy-policy/">Privacy policy ↗</a></> : 'The contact form is not connected yet. Please check back later.'}</p>
-  <button class="send-button mono" type="submit" disabled>Send message <span aria-hidden="true">↗</span></button>
-  <p id="contact-status" class="form-status" role="status" aria-live="polite" aria-atomic="true">{configured ? 'Enable JavaScript to send a message.' : 'Sending is currently unavailable.'}</p>
-  <noscript><p class="form-note">JavaScript is required to send this form.</p></noscript>
+  <div class="honeypot" aria-hidden="true"><label for="contact-company">Leave this field empty</label><input id="contact-company" name="_honey" tabindex="-1" autocomplete="off" /></div>
+  <p id="contact-privacy" class="form-note">FormSubmit processes your name, email and message to deliver it to me. You may be asked to complete a CAPTCHA before returning here. <a href="https://formsubmit.co/privacy.pdf">Privacy policy ↗</a></p>
+  <button class="send-button mono" type="submit">Send message <span aria-hidden="true">↗</span></button>
 </form>
-<script>
-  import { initContactForm } from '../scripts/contact';
-  document.querySelectorAll<HTMLFormElement>('[data-contact]').forEach(initContactForm);
-</script>

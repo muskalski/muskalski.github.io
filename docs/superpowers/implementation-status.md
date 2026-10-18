@@ -57,3 +57,13 @@ Removed all thumbnail captions and numbering; retained plain factual description
 ## Text-only hero
 
 Removed the hero photograph at the owner's request, keeping the Exploratorium image once in the gallery. The headline now spans the available desktop width and keeps “in between” together when wrapping on mobile. The photo-led layout remains available in commit `4c37dba` for a future return. Astro check/build and the 10 applicable browser checks passed; after the final line-break adjustment, all five site/layout checks passed again. Four viewport screenshots were refreshed with no overflow or page-script errors.
+
+## FormSubmit connection — 2026-10-18
+
+The owner provided a public FormSubmit identifier after activating it through the provider's demo. The site now uses a native POST to that opaque endpoint, with default provider CAPTCHA, `_honey`, a site-specific email subject and an absolute return URL to `/thanks/`. The visitor email field supplies Reply-To; the destination email is not present in source or built pages. An optional public endpoint override is validated to reject email addresses, other providers and AJAX routes.
+
+Removed the former Formspree fetch controller and its asynchronous-reset regression test because no client fetch/reset behavior remains. Replaced its browser cases with native navigation, provider verification/return, required-field validation, server/network failures with Back/retry, and submission without JavaScript. The no-JavaScript test was observed failing before the change; the FormSubmit endpoint validation regression also failed before implementation. A network-error test initially assumed the URL would stay on the provider; corrected it to allow Chrome's own transport-error page and assert message recovery and retry instead.
+
+Verification: Astro check has zero errors/warnings/hints; production build passes; all 3 Node unit and 14 browser tests pass. Every provider request was intercepted, so no real emails were sent and no CAPTCHA was bypassed. Desktop/mobile form and thank-you screenshots were inspected without overflow. Output audit confirms the exact opaque endpoint, enabled native submission, absolute return/source URLs, honeypot, no CAPTCHA-disable setting, no email addresses and no Formspree remnants. The thank-you page is excluded from the sitemap and marked noindex; it makes no inbox-delivery guarantee and contains no submitted information.
+
+Actual live-site CAPTCHA, any additional activation for muskalski.com, and receipt in the owner's inbox remain a manual end-to-end check. The prior demo activation alone is not claimed to establish live delivery.

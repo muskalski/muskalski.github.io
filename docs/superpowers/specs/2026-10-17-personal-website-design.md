@@ -67,3 +67,7 @@ Write access for eventual publication, configured form endpoint, and whether to 
 After reviewing the implementation, the owner approved removing captions from all six gallery thumbnails. Keep useful alt text and plain descriptive captions in the lightbox. Navigation and the lightbox use “Photos”; the gallery label is “02 — A few moments”, retaining “A different kind of balance.” as its heading. Remove the code-centred gallery subheading.
 
 The owner subsequently chose a text-only hero to remove the repeated Exploratorium image. Keep that photo among the six gallery images. This supersedes the initial hero-photo direction; the prior layout is retained in Git for a possible future return with a different gallery photo.
+
+## Contact provider update — 2026-10-18
+
+The owner chose FormSubmit.co after comparing free forwarding services and provided its activated opaque identifier. This supersedes the proposed Formspree AJAX integration. Use a native form POST with provider-default CAPTCHA, `_honey`, an identifying subject and an absolute `_next` URL returning to `/thanks/`. Keep the recipient email out of source and deployment output. The public identifier may be stored in site configuration. The owner will confirm live CAPTCHA and inbox delivery; automated tests must intercept provider requests.

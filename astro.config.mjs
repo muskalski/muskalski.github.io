@@ -4,6 +4,6 @@ export default defineConfig({
   site: 'https://muskalski.com',
   output: 'static',
   trailingSlash: 'always',
-  integrations: [sitemap()],
+  integrations: [sitemap({ filter: page => !page.endsWith('/thanks/') })],
   vite: { build: { sourcemap: false } },
 });

@@ -1,84 +1,95 @@
 import { test, expect, type Page } from '@playwright/test';
-const configured = !!process.env.PUBLIC_FORM_ENDPOINT;
-const endpoint = 'https://formspree.io/f/testfixture';
+const provider = 'https://formsubmit.co/**';
+const localThanks = 'http://127.0.0.1:4321/thanks/';
 async function fill(page: Page) {
-  await page.getByLabel('Name (optional)').fill('Visitor');
   await page.getByLabel('Email', { exact: true }).fill('visitor@example.test');
   await page.getByLabel('Message', { exact: true }).fill('Hello from a browser test.');
 }
 test.beforeEach(async ({ page }) => {
-  // Every provider request is intercepted; tests never send email.
-  await page.route('https://formspree.io/**', route => route.abort());
+  // Never send test messages or visit the real provider. More specific handlers below simulate it.
+  await page.route(provider, route => route.abort());
   await page.goto('/');
 });
-test('unconfigured form cannot claim or attempt delivery', async ({ page }) => {
-  test.skip(configured, 'Run against the default, unconfigured build.');
-  await expect(page.getByRole('button', { name: 'Send message' })).toBeDisabled();
-  await expect(page.getByRole('status')).toContainText(/unavailable/i);
-  await expect(page.locator('form')).not.toHaveAttribute('action', /formspree/);
+test('native submission forwards the message to verification, then returns to this site', async ({ page }) => {
+  const submit = page.getByRole('button', { name: 'Send message' });
+  await expect(submit).toBeEnabled();
+  const action = await page.locator('form').getAttribute('action');
+  expect(action).toMatch(/^https:\/\/formsubmit\.co\/[a-f0-9]{32}$/i);
+  let payload: URLSearchParams | undefined;
+  await page.route(provider, async route => {
+    expect(route.request().method()).toBe('POST');
+    expect(route.request().isNavigationRequest()).toBe(true);
+    payload = new URLSearchParams(route.request().postData()!);
+    await route.fulfill({ contentType: 'text/html', body: `<h1>Complete verification</h1><a href="${localThanks}">Continue after verification</a>` });
+  });
+  await fill(page);
+  await submit.click();
+  await expect(page).toHaveURL(action!);
+  await expect(page.getByRole('heading', { name: 'Complete verification' })).toBeVisible();
+  expect(payload!.get('name')).toBe('');
+  expect(payload!.get('email')).toBe('visitor@example.test');
+  expect(payload!.get('message')).toBe('Hello from a browser test.');
+  expect(payload!.get('_honey')).toBe('');
+  expect(payload!.get('_captcha')).not.toBe('false');
+  expect(payload!.get('_next')).toBe('https://muskalski.com/thanks/');
+  expect(payload!.get('_subject')).toContain('muskalski.com');
+  await page.getByRole('link', { name: 'Continue after verification' }).click();
+  await expect(page).toHaveURL(localThanks);
+  await expect(page.getByRole('heading', { name: 'Thank you.' })).toBeVisible();
+  await page.getByRole('link', { name: 'Back to the homepage' }).click();
+  await expect(page.getByRole('heading', { level: 1 })).toContainText('Code. Sound.');
 });
-test.describe('configured form', () => {
-  test.skip(!configured, 'Run npm run test:contact:configured for this fixture.');
-  test('required fields block requests', async ({ page }) => {
-    let calls = 0;
-    await page.route(endpoint, route => { calls++; return route.fulfill({ json: { ok: true } }); });
+test('required fields block provider requests', async ({ page }) => {
+  const submit = page.getByRole('button', { name: 'Send message' });
+  await expect(submit).toBeEnabled();
+  let calls = 0;
+  await page.route(provider, route => { calls++; return route.abort(); });
+  await submit.click();
+  expect(await page.locator('form').evaluate((form: HTMLFormElement) => form.checkValidity())).toBe(false);
+  await page.getByLabel('Email', { exact: true }).fill('not-an-email');
+  await page.getByLabel('Message', { exact: true }).fill('Hello');
+  await submit.click();
+  expect(calls).toBe(0);
+  await expect(page).toHaveURL('http://127.0.0.1:4321/');
+});
+for (const failure of ['server', 'network']) {
+  test(`${failure} failure allows Back to recover the message and retry`, async ({ page }) => {
+    await expect(page.getByRole('button', { name: 'Send message' })).toBeEnabled();
+    await page.route(provider, route => failure === 'server'
+      ? route.fulfill({ status: 503, contentType: 'text/html', body: '<h1>Service unavailable</h1>' })
+      : route.abort('failed'));
+    await fill(page);
     await page.getByRole('button', { name: 'Send message' }).click();
-    expect(await page.locator('form').evaluate((form: HTMLFormElement) => form.checkValidity())).toBe(false);
-    expect(calls).toBe(0);
-    await page.getByLabel('Email', { exact: true }).fill('not-an-email');
-    await page.getByLabel('Message', { exact: true }).fill('Hello');
+    // A transport failure may show the browser's own error page instead of the provider URL.
+    await expect(page).not.toHaveURL('http://127.0.0.1:4321/');
+    await expect(page).not.toHaveURL(/\/thanks\//);
+    await page.goBack();
+    await expect(page.getByLabel('Email', { exact: true })).toHaveValue('visitor@example.test');
+    await expect(page.getByLabel('Message', { exact: true })).toHaveValue('Hello from a browser test.');
+    await expect(page.getByRole('button', { name: 'Send message' })).toBeEnabled();
+    await page.route(provider, async route => {
+      const body = new URLSearchParams(route.request().postData()!);
+      expect(body.get('message')).toBe('Hello from a browser test.');
+      // Return to the test origin instead of the production _next destination.
+      await route.fulfill({ status: 302, headers: { location: localThanks } });
+    });
     await page.getByRole('button', { name: 'Send message' }).click();
-    expect(calls).toBe(0);
+    await expect(page).toHaveURL(localThanks);
   });
-  test('reports success only after response and prevents duplicate requests', async ({ page }) => {
-    let calls = 0;
-    let release!: () => void;
-    const waiting = new Promise<void>(resolve => { release = resolve; });
-    await page.route(endpoint, async route => {
-      calls++;
-      expect(route.request().headers().accept).toBe('application/json');
-      expect(route.request().postData()).toContain('Hello from a browser test.');
-      await waiting;
-      await route.fulfill({ status: 200, json: { ok: true } });
+}
+test.describe('without JavaScript', () => {
+  test.use({ javaScriptEnabled: false });
+  test('a visitor can still send the native form and return home', async ({ page }) => {
+    await expect(page.getByRole('button', { name: 'Send message' })).toBeEnabled();
+    await page.route(provider, async route => {
+      expect(route.request().isNavigationRequest()).toBe(true);
+      const body = new URLSearchParams(route.request().postData()!);
+      expect(body.get('email')).toBe('visitor@example.test');
+      expect(body.get('_captcha')).not.toBe('false');
+      await route.fulfill({ status: 302, headers: { location: localThanks } });
     });
     await fill(page);
     await page.getByRole('button', { name: 'Send message' }).click();
-    await expect(page.getByRole('status')).toContainText(/sending/i);
-    await expect(page.locator('button[type="submit"]')).toBeDisabled();
-    await page.locator('form').evaluate((form: HTMLFormElement) => form.requestSubmit());
-    await expect.poll(() => calls).toBe(1);
-    await expect(page.getByRole('status')).not.toContainText(/sent/i);
-    release();
-    await expect(page.getByRole('status')).toContainText(/sent/i);
-    await expect(page.getByLabel('Message', { exact: true })).toHaveValue('');
-    await expect(page.locator('button[type="submit"]')).toBeEnabled();
+    await expect(page.getByRole('heading', { name: 'Thank you.' })).toBeVisible();
   });
-  test('a successful response preserves edits made while sending', async ({ page }) => {
-    let release!: () => void;
-    const waiting = new Promise<void>(resolve => { release = resolve; });
-    await page.route(endpoint, async route => {
-      await waiting;
-      await route.fulfill({ status: 200, json: { ok: true } });
-    });
-    await fill(page);
-    await page.getByRole('button', { name: 'Send message' }).click();
-    await expect(page.getByRole('status')).toContainText(/sending/i);
-    await page.getByLabel('Message', { exact: true }).fill('New unsent edits');
-    release();
-    await expect(page.getByRole('status')).toContainText(/newer edits/i);
-    await expect(page.getByLabel('Message', { exact: true })).toHaveValue('New unsent edits');
-  });
-  for (const failure of ['server', 'network']) {
-    test(`${failure} failure preserves input and allows a successful retry`, async ({ page }) => {
-      await page.route(endpoint, route => failure === 'server' ? route.fulfill({ status: 500, json: { errors: [{ message: 'Unavailable' }] } }) : route.abort());
-      await fill(page); await page.getByRole('button', { name: 'Send message' }).click();
-      await expect(page.getByRole('status')).toContainText(/try again/i);
-      await expect(page.getByLabel('Message', { exact: true })).toHaveValue('Hello from a browser test.');
-      await expect(page.getByLabel('Email', { exact: true })).toHaveValue('visitor@example.test');
-      await expect(page.locator('button[type="submit"]')).toBeEnabled();
-      await page.route(endpoint, route => route.fulfill({ status: 200, json: { ok: true } }));
-      await page.getByRole('button', { name: 'Send message' }).click();
-      await expect(page.getByRole('status')).toContainText(/sent/i);
-    });
-  }
 });

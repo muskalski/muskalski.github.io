@@ -8,17 +8,18 @@ async function loadConfig(env) {
   const js = stripTypeScriptTypes(source).replaceAll('import.meta.env', JSON.stringify(env));
   return (await import(`data:text/javascript;base64,${Buffer.from(js).toString('base64')}`)).siteConfig;
 }
-test('optional links are absent by default', async () => {
+test('LinkedIn is absent by default', async () => {
   const config = await loadConfig({});
-  assert.equal(config.formEndpoint, undefined); assert.equal(config.linkedInUrl, undefined);
+  assert.equal(config.linkedInUrl, undefined);
 });
 test('accepts an owner-approved LinkedIn profile when configured', async () => {
   const url = 'https://www.linkedin.com/in/muskalski/';
   assert.equal((await loadConfig({ PUBLIC_LINKEDIN_URL: url })).linkedInUrl, url);
 });
 test('rejects recipient email endpoints and non-provider hosts', async () => {
-  for (const url of ['https://formspree.io/recipient@example.test', 'https://example.test/f/opaque', 'http://formspree.io/f/opaque']) {
+  for (const url of ['https://formsubmit.co/recipient@example.test', 'https://example.test/00000000000000000000000000000000', 'http://formsubmit.co/00000000000000000000000000000000', 'https://formsubmit.co/ajax/00000000000000000000000000000000', 'https://formspree.io/f/opaque']) {
     await assert.rejects(loadConfig({ PUBLIC_FORM_ENDPOINT: url }));
   }
-  assert.equal((await loadConfig({ PUBLIC_FORM_ENDPOINT: 'https://formspree.io/f/opaque' })).formEndpoint, 'https://formspree.io/f/opaque');
+  const endpoint = 'https://formsubmit.co/00000000000000000000000000000000';
+  assert.equal((await loadConfig({ PUBLIC_FORM_ENDPOINT: endpoint })).formEndpoint, endpoint);
 });
